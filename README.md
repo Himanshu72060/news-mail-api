@@ -1,0 +1,1 @@
+# news-mail-api
