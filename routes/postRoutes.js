@@ -7,7 +7,6 @@ const nodemailer = require('nodemailer');
 
 dotenv.config();
 
-
 // ✅ Confirm that environment variables are available
 const transporter = nodemailer.createTransport({
   service: 'gmail',
