@@ -43,7 +43,7 @@ router.post('/post', async (req, res) => {
 });
 
 // get all posts
-router.get('/posts', async (req, res) => {
+router.get('/post', async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(posts);
@@ -54,7 +54,7 @@ router.get('/posts', async (req, res) => {
 });
 
 // get a single post by id
-router.get('/posts/:id', async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -68,7 +68,7 @@ router.get('/posts/:id', async (req, res) => {
 });
 
 // ✅ Delete a post by id
-router.delete('/posts/:id', async (req, res) => {
+router.delete('/post/:id', async (req, res) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
     if (!post) {
@@ -82,7 +82,7 @@ router.delete('/posts/:id', async (req, res) => {
 });
 
 // ✅ Update a post by id
-router.put('/posts/:id', async (req, res) => {
+router.put('/post/:id', async (req, res) => {
   try {
     const { title, content } = req.body;
     const post = await Post.findByIdAndUpdate(req.params.id, { title, content }, { new: true });
@@ -97,7 +97,7 @@ router.put('/posts/:id', async (req, res) => {
 });
 
 // ✅ Get all subscribers
-router.get('/subscribers', async (req, res) => {
+router.get('/subscribe', async (req, res) => {
   try {
     const subscribers = await Subscriber.find();
     res.status(200).json(subscribers);
@@ -108,7 +108,7 @@ router.get('/subscribers', async (req, res) => {
 });
 
 // ✅ Get a single subscriber by id
-router.get('/subscribers/:id', async (req, res) => {
+router.get('/subscribe/:id', async (req, res) => {
   try {
     const subscriber = await Subscriber.findById(req.params.id);
     if (!subscriber) {
@@ -122,7 +122,7 @@ router.get('/subscribers/:id', async (req, res) => {
 });
 
 // ✅ Delete a subscriber by id
-router.delete('/subscribers/:id', async (req, res) => {
+router.delete('/subscribe/:id', async (req, res) => {
   try {
     const subscriber = await Subscriber.findByIdAndDelete(req.params.id);
     if (!subscriber) {
@@ -136,7 +136,7 @@ router.delete('/subscribers/:id', async (req, res) => {
 });
 
 // ✅ Update a subscriber by id
-router.put('/subscribers/:id', async (req, res) => {
+router.put('/subscribe/:id', async (req, res) => {
   try {
     const { email } = req.body;
     const subscriber = await Subscriber.findByIdAndUpdate(req.params.id, { email }, { new: true });
