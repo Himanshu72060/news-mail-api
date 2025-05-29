@@ -42,6 +42,116 @@ router.post('/post', async (req, res) => {
   }
 });
 
+// get all posts
+router.get('/posts', async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ createdAt: -1 });
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// get a single post by id
+router.get('/posts/:id', async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found.' });
+    }
+    res.status(200).json(post);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ Delete a post by id
+router.delete('/posts/:id', async (req, res) => {
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found.' });
+    }
+    res.status(200).json({ message: 'Post deleted successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ Update a post by id
+router.put('/posts/:id', async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const post = await Post.findByIdAndUpdate(req.params.id, { title, content }, { new: true });
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found.' });
+    }
+    res.status(200).json(post);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ Get all subscribers
+router.get('/subscribers', async (req, res) => {
+  try {
+    const subscribers = await Subscriber.find();
+    res.status(200).json(subscribers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ Get a single subscriber by id
+router.get('/subscribers/:id', async (req, res) => {
+  try {
+    const subscriber = await Subscriber.findById(req.params.id);
+    if (!subscriber) {
+      return res.status(404).json({ error: 'Subscriber not found.' });
+    }
+    res.status(200).json(subscriber);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ Delete a subscriber by id
+router.delete('/subscribers/:id', async (req, res) => {
+  try {
+    const subscriber = await Subscriber.findByIdAndDelete(req.params.id);
+    if (!subscriber) {
+      return res.status(404).json({ error: 'Subscriber not found.' });
+    }
+    res.status(200).json({ message: 'Subscriber deleted successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ Update a subscriber by id
+router.put('/subscribers/:id', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const subscriber = await Subscriber.findByIdAndUpdate(req.params.id, { email }, { new: true });
+    if (!subscriber) {
+      return res.status(404).json({ error: 'Subscriber not found.' });
+    }
+    res.status(200).json(subscriber);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+}
+);
+
+
 // ✅ Subscribe email
 router.post('/subscribe', async (req, res) => {
   try {
